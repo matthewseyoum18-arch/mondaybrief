@@ -3,12 +3,11 @@
 A row in ``email_suppressions`` means we must never send to that address.
 The list is fed from three places:
 
-* Postmark ``SpamComplaint`` and ``SubscriptionChange`` webhooks
-  (``observability.postmark_webhook``).
-* Postmark hard ``Bounce`` events (permanent failures).
+* Resend ``email.complained`` and permanent ``email.bounced`` webhooks
+  (``observability.resend_webhook``).
 * The one-click unsubscribe route (``send.unsubscribe``).
 
-``is_suppressed`` is checked in ``send.postmark.send_brief`` right before
+``is_suppressed`` is checked in ``send.brief.send_brief`` right before
 the API call, so a suppressed address short-circuits the send.
 
 All emails are normalised to ``lower().strip()`` before storage/lookup so

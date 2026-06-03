@@ -1,8 +1,8 @@
-"""Delivery-layer wiring tests (CAN-SPAM suppression + List-Unsubscribe).
+"""Delivery-layer tests (Resend): CAN-SPAM suppression + List-Unsubscribe.
 
-Offline — no network, no DB. ``is_suppressed`` and the Postmark client are
-stubbed via monkeypatch; the webhook suppression policy is tested as a pure
-function so it needs neither.
+Offline — no network, no DB. ``send_email`` and ``is_suppressed`` are stubbed
+via monkeypatch; the webhook suppression policy and the suppression fail-closed
+logic are tested as pure / connection-stubbed functions so they need neither.
 """
 from __future__ import annotations
 
@@ -29,115 +29,94 @@ def _bundle():
     )
 
 
-class _FakeEmails:
-    def __init__(self) -> None:
-        self.kwargs = None
-
-    def send(self, **kwargs):
-        self.kwargs = kwargs
-        return {"MessageID": "fake-123"}
-
-
-class _FakeClient:
-    def __init__(self) -> None:
-        self.emails = _FakeEmails()
-
-
 # ---------------------------------------------------------------------------
-# send.postmark.send_brief
+# send.brief.send_brief
 # ---------------------------------------------------------------------------
 
 
 def test_send_brief_skips_suppressed(monkeypatch, tmp_path) -> None:
-    """A suppressed recipient short-circuits the send (no API call, empty id)."""
+    """A suppressed recipient short-circuits the send (no Resend call, empty id)."""
     monkeypatch.setenv("FEEDBACK_TOKEN_SECRET", "test-secret-32-bytes-xxxxxxxxxxxx")
-    from mondaybrief.send import postmark
+    from mondaybrief.send import brief
 
-    fake = _FakeClient()
-    monkeypatch.setattr(postmark, "_client", lambda: fake)
-    monkeypatch.setattr(postmark, "is_suppressed", lambda email: True)
+    calls: list[dict] = []
+    monkeypatch.setattr(brief, "send_email", lambda **kw: calls.append(kw) or "x")
+    monkeypatch.setattr(brief, "is_suppressed", lambda email: True)
 
     pdf = tmp_path / "b.pdf"
     pdf.write_bytes(b"%PDF-1.7 test")
 
-    mid = postmark.send_brief(_bundle(), pdf, to_email="x@y.com")
+    mid = brief.send_brief(_bundle(), pdf, to_email="x@y.com")
 
     assert mid == ""
-    assert fake.emails.kwargs is None
+    assert calls == []
 
 
-def test_send_brief_adds_unsubscribe_and_metadata(monkeypatch, tmp_path) -> None:
-    """Non-suppressed send carries List-Unsubscribe headers, Metadata, footer."""
+def test_send_brief_adds_unsubscribe_and_tags(monkeypatch, tmp_path) -> None:
+    """Non-suppressed send carries List-Unsubscribe headers, tags, footer, PDF."""
     monkeypatch.setenv("FEEDBACK_TOKEN_SECRET", "test-secret-32-bytes-xxxxxxxxxxxx")
-    from mondaybrief.send import postmark
+    from mondaybrief.send import brief
 
-    fake = _FakeClient()
-    monkeypatch.setattr(postmark, "_client", lambda: fake)
-    monkeypatch.setattr(postmark, "is_suppressed", lambda email: False)
+    captured: dict = {}
+
+    def fake_send_email(**kw):
+        captured.update(kw)
+        return "resend-123"
+
+    monkeypatch.setattr(brief, "send_email", fake_send_email)
+    monkeypatch.setattr(brief, "is_suppressed", lambda email: False)
 
     pdf = tmp_path / "b.pdf"
     pdf.write_bytes(b"%PDF-1.7 test")
 
-    mid = postmark.send_brief(
+    mid = brief.send_brief(
         _bundle(), pdf, to_email="Owner@Y.com", client_id="cid-1", pipeline_run_id=7
     )
 
-    assert mid == "fake-123"
-    kw = fake.emails.kwargs
-    headers = {h["Name"]: h["Value"] for h in kw["Headers"]}
+    assert mid == "resend-123"
+    headers = captured["headers"]
     assert "/unsubscribe/" in headers["List-Unsubscribe"]
     assert headers["List-Unsubscribe-Post"] == "List-Unsubscribe=One-Click"
-    assert kw["Metadata"]["client_id"] == "cid-1"
-    assert kw["Metadata"]["pipeline_run_id"] == "7"
+    tags = {t["name"]: t["value"] for t in captured["tags"]}
+    assert tags["client_id"] == "cid-1"
+    assert tags["pipeline_run_id"] == "7"
     # CAN-SPAM footer: unsubscribe link in text, unsubscribe word in html.
-    assert "/unsubscribe/" in kw["TextBody"]
-    assert "Unsubscribe" in kw["HtmlBody"]
+    assert "/unsubscribe/" in captured["text"]
+    assert "Unsubscribe" in captured["html"]
+    # PDF attached.
+    assert captured["attachments"][0]["filename"].endswith(".pdf")
 
 
 # ---------------------------------------------------------------------------
-# observability.postmark_webhook._suppression_for_event  (pure policy)
+# observability.resend_webhook._suppression_for_event  (pure policy)
 # ---------------------------------------------------------------------------
 
 
 def test_suppression_for_spam_complaint() -> None:
-    from mondaybrief.observability.postmark_webhook import _suppression_for_event
+    from mondaybrief.observability.resend_webhook import _suppression_for_event
 
-    ev = {"RecordType": "SpamComplaint", "Email": "a@b.com"}
+    ev = {"type": "email.complained", "data": {"to": ["a@b.com"]}}
     assert _suppression_for_event(ev) == ("a@b.com", "spam_complaint")
 
 
 def test_suppression_for_hard_bounce() -> None:
-    from mondaybrief.observability.postmark_webhook import _suppression_for_event
+    from mondaybrief.observability.resend_webhook import _suppression_for_event
 
-    ev = {"RecordType": "Bounce", "Type": "HardBounce", "Email": "a@b.com"}
+    ev = {"type": "email.bounced", "data": {"to": ["a@b.com"], "bounce": {"type": "Permanent"}}}
     assert _suppression_for_event(ev) == ("a@b.com", "hard_bounce")
 
 
 def test_no_suppression_for_soft_bounce() -> None:
-    from mondaybrief.observability.postmark_webhook import _suppression_for_event
+    from mondaybrief.observability.resend_webhook import _suppression_for_event
 
-    ev = {"RecordType": "Bounce", "Type": "SoftBounce", "Email": "a@b.com"}
+    ev = {"type": "email.bounced", "data": {"to": ["a@b.com"], "bounce": {"type": "Transient"}}}
     assert _suppression_for_event(ev) is None
 
 
-def test_suppression_for_subscription_change() -> None:
-    from mondaybrief.observability.postmark_webhook import _suppression_for_event
+def test_no_suppression_for_delivered() -> None:
+    from mondaybrief.observability.resend_webhook import _suppression_for_event
 
-    ev = {"RecordType": "SubscriptionChange", "Recipient": "a@b.com", "SuppressSending": True}
-    assert _suppression_for_event(ev) == ("a@b.com", "unsubscribe")
-
-
-def test_no_suppression_for_resubscribe() -> None:
-    from mondaybrief.observability.postmark_webhook import _suppression_for_event
-
-    ev = {"RecordType": "SubscriptionChange", "Recipient": "a@b.com", "SuppressSending": False}
-    assert _suppression_for_event(ev) is None
-
-
-def test_no_suppression_for_delivery() -> None:
-    from mondaybrief.observability.postmark_webhook import _suppression_for_event
-
-    ev = {"RecordType": "Delivery", "Email": "a@b.com"}
+    ev = {"type": "email.delivered", "data": {"to": ["a@b.com"]}}
     assert _suppression_for_event(ev) is None
 
 
@@ -222,23 +201,23 @@ def test_is_suppressed_fails_closed_after_retry(monkeypatch) -> None:
 
 
 def test_send_brief_aborts_when_suppression_check_fails(monkeypatch, tmp_path) -> None:
-    """If suppression can't be read, abort the send (no API call) and propagate."""
+    """If suppression can't be read, abort the send (no Resend call) and propagate."""
     monkeypatch.setenv("FEEDBACK_TOKEN_SECRET", "test-secret-32-bytes-xxxxxxxxxxxx")
-    from mondaybrief.send import postmark
+    from mondaybrief.send import brief
     from mondaybrief.send.suppression import SuppressionCheckError
 
-    fake = _FakeClient()
-    monkeypatch.setattr(postmark, "_client", lambda: fake)
+    calls: list[dict] = []
+    monkeypatch.setattr(brief, "send_email", lambda **kw: calls.append(kw) or "x")
 
     def _raise(email):
         raise SuppressionCheckError("db down")
 
-    monkeypatch.setattr(postmark, "is_suppressed", _raise)
+    monkeypatch.setattr(brief, "is_suppressed", _raise)
 
     pdf = tmp_path / "b.pdf"
     pdf.write_bytes(b"%PDF-1.7 test")
 
     with pytest.raises(SuppressionCheckError):
-        postmark.send_brief(_bundle(), pdf, to_email="x@y.com")
+        brief.send_brief(_bundle(), pdf, to_email="x@y.com")
 
-    assert fake.emails.kwargs is None
+    assert calls == []
