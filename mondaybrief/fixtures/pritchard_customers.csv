@@ -1,0 +1,23 @@
+client_id,name,address,city,state,lat,lng,category,sqft,monthly_rev,status
+pritchard,Midtown Office Tower 12,1290 Avenue of the Americas,New York,NY,40.7614,-73.9803,office,42000,11200,active
+pritchard,Rockefeller Plaza Suites,30 Rockefeller Plaza,New York,NY,40.7587,-73.9787,office,38500,10800,active
+pritchard,Park Avenue Medical Suites,2 Park Ave,New York,NY,40.7456,-73.9819,medical office,12400,5600,active
+pritchard,FiDi Legal Offices,55 Water St,New York,NY,40.7032,-74.0086,office,28000,9200,active
+pritchard,Chelsea Tech Loft,111 8th Ave,New York,NY,40.7414,-74.0035,office,18500,6800,active
+pritchard,Flatiron Coworking Hub,200 5th Ave,New York,NY,40.7411,-73.9897,office,15200,6100,active
+pritchard,UES Pediatric Practice,1280 Lexington Ave,New York,NY,40.7791,-73.9573,medical office,4200,3800,active
+pritchard,UWS Family Dental,2112 Broadway,New York,NY,40.7779,-73.9818,dental clinic,3100,3600,active
+pritchard,LIC Tech Campus Building C,27-01 Queens Plaza N,Long Island City,NY,40.7505,-73.9408,office,45000,11800,active
+pritchard,Long Island City Imaging Center,42-15 Crescent St,Long Island City,NY,40.7488,-73.9445,medical office,8600,5400,active
+pritchard,Astoria Dental Group,36-20 Steinway St,Astoria,NY,40.7616,-73.9173,dental clinic,3200,3700,active
+pritchard,Astoria Family Health,31-19 Newtown Ave,Astoria,NY,40.7625,-73.9251,medical office,3600,3900,active
+pritchard,Williamsburg Coworking Hub,25 Kent Ave,Brooklyn,NY,40.7218,-73.9601,office,16800,6400,active
+pritchard,Williamsburg Family Practice,240 Bedford Ave,Brooklyn,NY,40.7165,-73.9613,medical office,3400,3800,active
+pritchard,Bushwick Tech Loft,99 Scott Ave,Brooklyn,NY,40.7141,-73.9296,office,22000,7600,active
+pritchard,DUMBO Creative Studios,55 Washington St,Brooklyn,NY,40.7033,-73.9881,office,14500,5900,active
+pritchard,Greenpoint Vet Clinic,650 Manhattan Ave,Brooklyn,NY,40.7295,-73.9542,vet clinic,3200,3800,active
+pritchard,Park Slope Pediatrics,200 7th Ave,Brooklyn,NY,40.6712,-73.9779,medical office,3800,3950,active
+pritchard,Park Slope Fitness Studio,464 Bergen St,Brooklyn,NY,40.6802,-73.9748,fitness studio,5200,3550,active
+pritchard,South Bronx Medical Plaza,149 E 149th St,Bronx,NY,40.8166,-73.9272,medical office,9400,5200,active
+pritchard,Mott Haven Office Suites,2825 3rd Ave,Bronx,NY,40.8129,-73.9237,office,11200,5100,active
+pritchard,Midtown South Cafe,1180 6th Ave,New York,NY,40.7568,-73.9819,cafe,3000,3500,active

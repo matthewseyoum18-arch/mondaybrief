@@ -1,0 +1,21 @@
+{
+  "name": "mondaybrief-emails",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Email templates rendered by react-email. Build once, export to static HTML, served from Python.",
+  "scripts": {
+    "dev": "email dev --dir .",
+    "export": "email export --dir . --outDir ./out"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@react-email/components": "^0.0.25",
+    "@react-email/render": "^1.0.1"
+  },
+  "devDependencies": {
+    "react-email": "^3.0.0",
+    "typescript": "^5.5.4"
+  },
+  "engines": { "node": ">=20" }
+}

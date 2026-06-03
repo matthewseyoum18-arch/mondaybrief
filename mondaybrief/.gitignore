@@ -1,0 +1,19 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+out/
+*.pdf
+*.egg-info/
+dist/
+build/
+node_modules/
+.next/
+.DS_Store
+
+# Agent / tool state — not source
+.omc/
+*.tmp

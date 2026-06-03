@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MondayBrief — {{ bundle.client_name }} — Week of {{ bundle.week_of }}</title>
+<style>
+  @page {
+    size: letter;
+    margin: 0.6in 0.7in 0.85in 0.7in;
+    @bottom-center {
+      content: "MondayBrief · " counter(page) " / " counter(pages);
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 8pt;
+      color: #888;
+    }
+    @bottom-left {
+      content: "Data © City of Chicago Open Data + OpenStreetMap contributors (ODbL)";
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 7pt;
+      color: #aaa;
+    }
+  }
+  body { font-family: "Helvetica Neue", Arial, sans-serif; color: #1a1a1a; font-size: 11pt; line-height: 1.45; }
+  h1 { font-size: 22pt; margin: 0 0 4px; letter-spacing: -0.3px; }
+  .meta-strip { color: #555; font-size: 10pt; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #ddd; }
+  .summary { background: #f6f8fa; border-left: 3px solid #0a7d57; padding: 10px 14px; margin: 12px 0 18px; font-size: 10pt; }
+  .lead { page-break-inside: avoid; border-top: 1px solid #e0e0e0; padding: 12px 0; }
+  .lead:first-of-type { border-top: 0; }
+  .lead .row { display: flex; justify-content: space-between; gap: 16px; margin-top: 3px; }
+  .lead .biz { font-size: 13pt; font-weight: 700; }
+  .lead .muted { color: #666; font-size: 9.5pt; }
+  .lead .score { font-weight: 700; color: #0a7d57; font-size: 11pt; }
+  .lead .opener { background: #fdfaef; border: 1px solid #f1e7c8; border-radius: 4px; padding: 8px 10px; margin-top: 8px; font-size: 10pt; font-style: italic; color: #3a3322; }
+  .lead .why { color: #444; margin-top: 6px; font-size: 9.5pt; }
+  .lead .nums { color: #333; font-size: 9.5pt; }
+  .lead .feedback { margin-top: 6px; font-size: 9pt; color: #888; }
+  .lead .feedback a { margin-right: 10px; }
+  .lead .feedback .up { color: #0a7d57; }
+  .lead .feedback .down { color: #b34a3a; }
+  footer.note { margin-top: 22px; padding-top: 10px; border-top: 1px solid #ddd; font-size: 8pt; color: #888; }
+  a, a:visited { color: #0a7d57; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<h1>MondayBrief — {{ bundle.client_name }}</h1>
+<div class="meta-strip">
+  Week of {{ bundle.week_of.strftime("%b %d, %Y") }} · {{ bundle.metro }} ·
+  Top {{ bundle.leads|length }} leads inside your service area
+</div>
+
+<div class="summary">
+  This week we read {{ bundle.permits_pulled }} new business filings across Chicago.
+  {{ bundle.leads_inside_area }} landed inside your route radius.
+  {{ bundle.leads_after_dedup }} survived the dedup against your {{ bundle.customer_count }}-account book.
+  These are the top {{ bundle.leads|length }} ranked by margin × route fit × category match.
+</div>
+
+{% for lead in bundle.leads %}
+<div class="lead">
+  <div class="row">
+    <div class="biz">{{ loop.index }}. {{ lead.name }}</div>
+    <div class="score">score {{ lead.score }}</div>
+  </div>
+  <div class="row">
+    <div class="muted">{{ lead.address }} · {{ lead.category }}</div>
+    <div class="muted">${{ "{:,.0f}".format(lead.margin_est_monthly) }}/mo · +{{ "{:.0f}".format(lead.margin_uplift_pct) }}% margin vs avg</div>
+  </div>
+  <div class="why"><strong>Why this Monday:</strong> {{ lead.why }}</div>
+  <div class="opener">{{ lead.opener }}</div>
+  {% set feedback_token = feedback_tokens[loop.index0] if feedback_tokens and feedback_tokens|length > loop.index0 else None %}
+  {% if feedback_token and app_base_url %}
+  <div class="feedback">
+    Was this a useful lead?
+    <a class="up" href="{{ app_base_url }}/feedback/{{ feedback_token }}?thumbs=up">&#128077; Good lead</a>
+    |
+    <a class="down" href="{{ app_base_url }}/feedback/{{ feedback_token }}?thumbs=down">&#128078; Skip</a>
+  </div>
+  {% endif %}
+</div>
+{% endfor %}
+
+<footer class="note">
+  Every lead links to the official city record on data.cityofchicago.org.
+  Reply STOP to pause briefs. Generated {{ bundle.generated_at.strftime("%Y-%m-%d %H:%M") }} UTC.
+</footer>
+
+</body>
+</html>

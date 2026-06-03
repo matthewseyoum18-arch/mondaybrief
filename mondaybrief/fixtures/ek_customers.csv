@@ -1,0 +1,21 @@
+client_id,name,address,city,state,lat,lng,category,sqft,monthly_rev,status
+ek,Lincoln Park Pediatrics,2050 N Lincoln Ave,Chicago,IL,41.9201,-87.6440,medical office,3200,2400,active
+ek,Belmont Office Tower 1,1310 W Belmont Ave,Chicago,IL,41.9398,-87.6606,office,18500,4800,active
+ek,Wicker Park Dental Group,1701 W Division St,Chicago,IL,41.9034,-87.6712,dental clinic,2800,2100,active
+ek,Old Town Fitness Studio,1525 N Wells St,Chicago,IL,41.9098,-87.6347,fitness studio,4200,1850,active
+ek,River North Law Suites,401 N State St,Chicago,IL,41.8901,-87.6286,office,11400,3200,active
+ek,Gold Coast Veterinary,1240 N Clark St,Chicago,IL,41.9051,-87.6315,vet clinic,2400,1980,active
+ek,Lakeview Optometry,3500 N Halsted St,Chicago,IL,41.9448,-87.6494,medical office,1800,1620,active
+ek,Bucktown Coworking,1709 N Damen Ave,Chicago,IL,41.9135,-87.6776,office,9200,2750,active
+ek,Logan Square Pediatric Dental,2640 N Milwaukee Ave,Chicago,IL,41.9303,-87.7046,dental clinic,2600,2050,active
+ek,Edgewater Family Practice,5700 N Sheridan Rd,Chicago,IL,41.9849,-87.6555,medical office,3400,2350,active
+ek,Wrigleyville CrossFit,3548 N Clark St,Chicago,IL,41.9476,-87.6555,fitness studio,5100,1980,active
+ek,South Loop Legal Office,801 S Wabash Ave,Chicago,IL,41.8731,-87.6258,office,7800,2480,active
+ek,Andersonville Animal Hospital,5440 N Clark St,Chicago,IL,41.9789,-87.6688,vet clinic,3100,2680,active
+ek,West Loop Tech Suites,210 N Carpenter St,Chicago,IL,41.8847,-87.6608,office,14200,4100,active
+ek,Lincoln Square Pediatric,4753 N Lincoln Ave,Chicago,IL,41.9683,-87.6885,medical office,2200,1840,active
+ek,Roscoe Village Yoga Loft,2046 W Roscoe St,Chicago,IL,41.9430,-87.6826,fitness studio,3800,1750,active
+ek,Uptown Dental Associates,4642 N Broadway,Chicago,IL,41.9659,-87.6601,dental clinic,2900,2280,active
+ek,Wicker Park Coworking,1463 N Milwaukee Ave,Chicago,IL,41.9089,-87.6794,office,8600,2640,active
+ek,Lakeview Veterinary Care,2845 N Halsted St,Chicago,IL,41.9343,-87.6494,vet clinic,2700,2120,active
+ek,Pilsen Family Medical,1758 W 18th St,Chicago,IL,41.8572,-87.6716,medical office,2500,1950,active

@@ -1,0 +1,22 @@
+client_id,name,address,city,state,lat,lng,category,sqft,monthly_rev,status
+spotless,South Loop Imaging Center,1331 S Michigan Ave,Chicago,IL,41.8654,-87.6243,medical office,5400,3100,active
+spotless,Old Town Vision Clinic,1440 N Wells St,Chicago,IL,41.9081,-87.6346,medical office,2100,1780,active
+spotless,West Loop Dental Studio,932 W Randolph St,Chicago,IL,41.8842,-87.6505,dental clinic,3100,2350,active
+spotless,Fulton Market Tech Loft,170 N Peoria St,Chicago,IL,41.8856,-87.6494,office,15600,4600,active
+spotless,River North Endodontics,520 N LaSalle Dr,Chicago,IL,41.8917,-87.6336,dental clinic,2400,2050,active
+spotless,Streeterville Veterinary Hospital,401 E Ontario St,Chicago,IL,41.8935,-87.6193,vet clinic,3600,2890,active
+spotless,Loop Financial Suites,200 W Madison St,Chicago,IL,41.8819,-87.6347,office,19800,5200,active
+spotless,Bucktown Barre Studio,1813 N Milwaukee Ave,Chicago,IL,41.9148,-87.6815,fitness studio,3400,1720,active
+spotless,Lincoln Park Orthodontics,2418 N Lincoln Ave,Chicago,IL,41.9261,-87.6479,dental clinic,2700,2180,active
+spotless,Wicker Park Cat Clinic,2056 W North Ave,Chicago,IL,41.9101,-87.6796,vet clinic,1900,1650,active
+spotless,Logan Square Roastery Cafe,2545 N California Ave,Chicago,IL,41.9276,-87.6967,cafe,1800,1550,active
+spotless,Lakeview Family Dermatology,3128 N Broadway,Chicago,IL,41.9385,-87.6440,medical office,2900,2240,active
+spotless,Edgewater Pilates Collective,5520 N Broadway,Chicago,IL,41.9806,-87.6601,fitness studio,3200,1680,active
+spotless,Andersonville Cafe & Bakery,5247 N Clark St,Chicago,IL,41.9760,-87.6685,cafe,2100,1620,active
+spotless,Ravenswood Medical Group,4801 N Damen Ave,Chicago,IL,41.9692,-87.6786,medical office,4100,2780,active
+spotless,Pilsen Creative Offices,1801 S Racine Ave,Chicago,IL,41.8579,-87.6566,office,8400,2620,active
+spotless,Humboldt Park Animal Wellness,2701 W North Ave,Chicago,IL,41.9101,-87.6953,vet clinic,2600,2090,active
+spotless,Uptown Coworking Hub,4750 N Sheridan Rd,Chicago,IL,41.9684,-87.6543,office,10200,3000,active
+spotless,Roscoe Village Smile Studio,2120 W Belmont Ave,Chicago,IL,41.9396,-87.6831,dental clinic,2300,1920,active
+spotless,Avondale Strength Lab,3145 N Kedzie Ave,Chicago,IL,41.9384,-87.7077,fitness studio,4500,1880,active
+spotless,Hyde Park Family Practice,5301 S Hyde Park Blvd,Chicago,IL,41.7993,-87.5851,medical office,3300,2410,active

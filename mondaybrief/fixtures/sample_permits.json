@@ -1,0 +1,98 @@
+[
+  {
+    "source": "r5kz-chrr",
+    "source_id": "BUS-2026-019442",
+    "name": "Lincoln Park Dental Studio LLC",
+    "dba": "Lincoln Park Dental Studio",
+    "address": "2014 N Lincoln Ave",
+    "city": "Chicago",
+    "state": "IL",
+    "zip": "60614",
+    "date_issued": "2026-05-26",
+    "raw_json": {"license_code": "1006", "license_description": "Limited Business License", "ward": "43"}
+  },
+  {
+    "source": "r5kz-chrr",
+    "source_id": "BUS-2026-019733",
+    "name": "West Loop Vet Clinic PC",
+    "dba": "West Loop Vet Clinic",
+    "address": "1144 W Randolph St",
+    "city": "Chicago",
+    "state": "IL",
+    "zip": "60607",
+    "date_issued": "2026-05-27",
+    "raw_json": {"license_code": "1006", "license_description": "Limited Business License", "ward": "27"}
+  },
+  {
+    "source": "r5kz-chrr",
+    "source_id": "BUS-2026-019501",
+    "name": "Halsted Coffee Roasters LLC",
+    "dba": "Halsted Coffee Roasters",
+    "address": "3344 N Halsted St",
+    "city": "Chicago",
+    "state": "IL",
+    "zip": "60657",
+    "date_issued": "2026-05-29",
+    "raw_json": {"license_code": "1475", "license_description": "Retail Food", "ward": "44"}
+  },
+  {
+    "source": "r5kz-chrr",
+    "source_id": "BUS-2026-019610",
+    "name": "Avondale Pilates Loft LLC",
+    "dba": "Avondale Pilates Loft",
+    "address": "2929 N Milwaukee Ave",
+    "city": "Chicago",
+    "state": "IL",
+    "zip": "60618",
+    "date_issued": "2026-05-28",
+    "raw_json": {"license_code": "1006", "license_description": "Limited Business License", "ward": "33"}
+  },
+  {
+    "source": "r5kz-chrr",
+    "source_id": "BUS-2026-019877",
+    "name": "Ravenswood Optometry LLC",
+    "dba": "Ravenswood Optometry",
+    "address": "4533 N Lincoln Ave",
+    "city": "Chicago",
+    "state": "IL",
+    "zip": "60625",
+    "date_issued": "2026-05-27",
+    "raw_json": {"license_code": "1006", "license_description": "Limited Business License", "ward": "47"}
+  },
+  {
+    "source": "r5kz-chrr",
+    "source_id": "BUS-2026-019902",
+    "name": "Lincoln Park Pediatrics LLC",
+    "dba": "Lincoln Park Pediatrics",
+    "address": "2050 N Lincoln Ave",
+    "city": "Chicago",
+    "state": "IL",
+    "zip": "60614",
+    "date_issued": "2026-05-26",
+    "raw_json": {"license_code": "1006", "license_description": "DEDUP-TEST — should match existing customer", "ward": "43"}
+  },
+  {
+    "source": "ydr8-5enu",
+    "source_id": "TI-2026-088605",
+    "name": "Pilsen Bakery DBA Soto's",
+    "dba": "Pilsen Bakery",
+    "address": "1620 W 18th St",
+    "city": "Chicago",
+    "state": "IL",
+    "zip": "60608",
+    "date_issued": "2026-05-29",
+    "raw_json": {"permit_type": "PERMIT - NEW CONSTRUCTION", "work_description": "Buildout for bakery tenant"}
+  },
+  {
+    "source": "ydr8-5enu",
+    "source_id": "TI-2026-088712",
+    "name": "Logan Square Yoga Co-op",
+    "dba": "Logan Square Yoga",
+    "address": "2424 N California Ave",
+    "city": "Chicago",
+    "state": "IL",
+    "zip": "60647",
+    "date_issued": "2026-05-25",
+    "raw_json": {"permit_type": "PERMIT - RENOVATION", "work_description": "Interior buildout, fitness studio"}
+  }
+]
