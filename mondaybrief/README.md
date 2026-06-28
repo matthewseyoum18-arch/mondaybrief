@@ -1,26 +1,56 @@
 # MondayBrief
 
-Monday-morning lead brief for commercial cleaners. Ingests public city signals, finds buildings opening near existing routes, scores the best opportunities, and renders a PDF brief.
+MondayBrief is a Monday-morning lead brief for commercial cleaners. It ingests
+public city signals, finds businesses opening near existing routes, scores the
+best opportunities, and renders a sales-ready PDF brief.
 
-## Portfolio proof
+## Product overview
 
 MondayBrief is a GTM system, not a toy scraper. It turns messy public buying
-signals into a weekly outbound motion for local B2B services:
+signals into a weekly outbound motion for local B2B services.
+
+The product answers four practical sales questions:
+
+- Who should I contact this week?
+- Why is this account relevant now?
+- Is it near customers I already serve?
+- What should I say when I call?
+
+The current vertical is commercial cleaning, but the workflow generalizes to
+other local B2B services where timing, territory, and account fit matter.
+
+## How it works
 
 1. ingest city permit/license signals
-2. match them against a customer's existing book of business
-3. score the best prospects by route fit, category fit, and estimated value
-4. generate a short sales brief with call openers and evidence
-5. deliver the brief on a recurring schedule
-6. collect feedback so the scoring loop can improve
+2. clean and normalize company names, categories, and addresses
+3. geocode opportunities and map them against service territory
+4. match against a customer's existing book of business
+5. remove known customers and duplicates
+6. score prospects by route fit, category fit, and estimated value
+7. generate a short sales brief with call openers and evidence
+8. deliver the brief on a recurring schedule
+9. collect feedback so the scoring loop can improve
 
 The business idea: a commercial cleaner should not wait until a new office,
 clinic, cafe, or gym is already shopping vendors. MondayBrief finds those
 accounts earlier, explains why they fit, and gives the seller a reason to call.
 
-This is the same type of system I would build for GTM engineering work:
-source discovery, enrichment, scoring, workflow automation, messaging, and a
-closed-loop feedback path.
+The useful output is not the raw dataset. The useful output is a weekly list of
+sales actions a human can understand, trust, and act on.
+
+## What is in the system
+
+| Area | Purpose |
+|---|---|
+| Ingestion | Pull public city records and fixture-backed signal data |
+| Enrichment | Geocode addresses, calculate territory fit, and compare accounts |
+| Deduplication | Remove duplicates and accounts the seller already serves |
+| Scoring | Rank opportunities by fit, timing, proximity, and estimated value |
+| Narrative | Explain why each account is worth contacting and suggest call openers |
+| Rendering | Turn scored leads into a PDF brief |
+| Delivery | Send briefs and suppress unsafe sends |
+| Feedback | Capture seller judgment for future scoring |
+| UI | Provide a no-key demo and basic customer-facing pages |
 
 ## Recruiter-safe demo
 
